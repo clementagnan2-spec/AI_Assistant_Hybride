@@ -111,6 +111,10 @@ def _embedded(cfg, messages, stop):
             _cache["llm"] = Llama(model_path=path, n_ctx=n_ctx,
                                   n_threads=max(2, (os.cpu_count() or 4) // 2), verbose=False)
         except Exception as e:
+            if "0xc000001d" in str(e).lower() or "1073741795" in str(e):
+                raise LLMError("Ton processeur ne gère pas les instructions utilisées par ce moteur "
+                               "(erreur 0xc000001d). Recompile via GitHub Actions avec le workflow "
+                               "fourni, qui compile le moteur pour tous les processeurs.")
             raise LLMError(f"Chargement du modèle impossible : {e}")
         _cache["key"] = key
     stream = None

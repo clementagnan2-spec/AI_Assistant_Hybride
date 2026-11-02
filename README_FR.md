@@ -21,5 +21,8 @@ Un petit modèle donne des synthèses modestes : pour de meilleurs résultats, u
 - **Sur ton PC** : Python **3.10 à 3.12** (pas 3.13+), double-clique `build_exe.bat` → `dist\AI_Assistant_Hybride.exe`.
 - **Via GitHub** : pousse le dossier, onglet Actions → « Build EXE » → télécharge l'artefact.
 
+## Processeur ancien (erreur 0xc000001d)
+Le workflow GitHub compile le moteur **sans** instructions AVX/AVX2 : il tourne sur tous les PC, mais plus lentement. `build_exe.bat` (moteur précompilé, qui exige AVX2) convient seulement aux PC récents ; en cas d'erreur 0xc000001d, utilise GitHub Actions.
+
 ## Limites
 Historique et clés API stockés en clair dans `%APPDATA%\AIAssistantHybride\`. L'EXE est volumineux (le moteur est embarqué).
