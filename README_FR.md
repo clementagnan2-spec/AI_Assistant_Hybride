@@ -1,22 +1,25 @@
-# AI Assistant Hybride — projet de démarrage
+# AI Assistant Hybride v4 — moteur IA intégré
 
-Ce ZIP fournit une petite interface Windows avec deux modes sélectionnables.
+Le moteur d'IA (llama.cpp) est **dans l'application** : plus besoin d'installer Ollama.
 
-## Mode hors ligne
-1. Installe Ollama pour Windows : https://ollama.com/download
-2. Dans un terminal, exécute : `ollama pull qwen2.5:0.5b`
-3. Laisse Ollama démarré et conserve le mode `local` dans Paramètres.
+## Modes du modèle (Paramètres)
+- **Intégré** (par défaut) : 100 % hors ligne, rien à installer. Modèle Qwen2.5-0.5B (~400 Mo).
+- **Ollama** : optionnel, si tu préfères un modèle plus gros déjà installé.
+- **En ligne** : API compatible OpenAI (clé API requise).
+- **Auto** : essaie intégré → Ollama → en ligne, le premier qui répond.
 
-Avec 4 Go de RAM, ferme les autres applications. Le modèle local sera modeste et pourra répondre lentement.
+## Le modèle IA
+- Compilation via **GitHub Actions** : l'artefact `AI_Assistant_Hybride_complet` contient l'EXE **et** le dossier `models` avec le modèle. Garde-les ensemble : tout marche sans Internet.
+- Compilation locale (`build_exe.bat`) : le modèle est téléchargé au 1er lancement (bouton « Télécharger le modèle intégré »), ou place un fichier `.gguf` dans `models` à côté de l'EXE.
+- Tu peux utiliser un autre modèle `.gguf` (champ « Fichier modèle .gguf »).
 
-## Mode en ligne
-Dans Paramètres, choisis `online`, puis renseigne l'URL, le nom du modèle et ta clé API auprès d'un fournisseur compatible OpenAI Chat Completions. Internet et une clé valide sont nécessaires. Des frais peuvent s'appliquer selon le fournisseur.
+## Recherche approfondie
+Menu sous la zone de discussion : **En ligne** (web : DuckDuckGo ou Tavily), **Hors ligne** (tes documents .txt .md .csv .docx .pdf), **Auto** (web, sinon documents). Synthèse avec sources [1], [2]…
+Un petit modèle donne des synthèses modestes : pour de meilleurs résultats, utilise un modèle `.gguf` plus gros (ex. Qwen2.5-3B, si ta RAM le permet) ou le mode En ligne.
 
-## Compiler en EXE
-Prérequis : Python 3.10+ sur Windows.
-1. Décompresse le ZIP.
-2. Double-clique sur `build_exe.bat`.
-3. Le résultat sera `dist\\AI_Assistant_Hybride.exe`.
+## Compiler
+- **Sur ton PC** : Python **3.10 à 3.12** (pas 3.13+), double-clique `build_exe.bat` → `dist\AI_Assistant_Hybride.exe`.
+- **Via GitHub** : pousse le dossier, onglet Actions → « Build EXE » → télécharge l'artefact.
 
-## Limites de cette première version
-Ce n'est pas une IA préinstallée : aucun modèle ni aucune clé API ne sont inclus. Le changement de mode est manuel. Pas encore de recherche web, analyse de documents, chiffrement de l'historique ou fonctions vocales. L'historique est stocké dans `%APPDATA%\\AIAssistantHybride\\history.json` en clair. Ne l'utilise pas pour des données sensibles.
+## Limites
+Historique et clés API stockés en clair dans `%APPDATA%\AIAssistantHybride\`. L'EXE est volumineux (le moteur est embarqué).

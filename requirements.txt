@@ -1,1 +1,2 @@
-pyinstaller>=6.0\n
+pyinstaller>=6.0
+pypdf>=4.0
